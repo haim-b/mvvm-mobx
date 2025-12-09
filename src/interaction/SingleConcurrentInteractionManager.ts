@@ -3,7 +3,7 @@ import { InteractionManager } from "./InteractionManager";
 import { InteractionRequest } from "./InteractionRequest";
 
 export class SingleConcurrentInteractionManager implements InteractionManager {
-    @observable interactionRequest: InteractionRequest | null = { title: '', content: '' };
+    @observable accessor interactionRequest: InteractionRequest | null = { title: '', content: '' };
     private resolveFunc?: ((interactionResponse: string | void) => void);
 
     constructor() {

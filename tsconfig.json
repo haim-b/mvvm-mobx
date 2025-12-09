@@ -13,8 +13,7 @@
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
-        "moduleResolution": "node",
-        "experimentalDecorators": true
+        "moduleResolution": "node"
     },
     "include": [
         "src"

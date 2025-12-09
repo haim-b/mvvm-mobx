@@ -1,7 +1,7 @@
 import { action, computed, makeObservable, observable, runInAction } from 'mobx';
 
 export class CounterFlag {
-    @observable private counter = 0;
+    @observable private accessor counter = 0;
 
     constructor() {
         makeObservable(this);
