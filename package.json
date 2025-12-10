@@ -1,6 +1,6 @@
 {
   "name": "mvvm-mobx",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "MVVM pattern implementation with MobX for reactive state management",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

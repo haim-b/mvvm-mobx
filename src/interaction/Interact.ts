@@ -14,7 +14,7 @@ export class Interact {
      * @returns true if @constant CommonInteractionResponses.Ok.id was selected, or false if @constant CommonInteractionResponses.Cancel.id was selected.
      */
     static async withOkCancel(interactionManager: InteractionManager, title: string | any, content: string | any) {
-        return await this.withCustomAndCancel(interactionManager, title, content, CommonInteractionResponses.ok.action);
+        return await this.withCustomAndCancel(interactionManager, title, content, CommonInteractionResponses.ok.response);
     }
 
     /**
@@ -28,7 +28,7 @@ export class Interact {
         return (await interactionManager.requestInteraction({
             title,
             content,
-            responses: [CommonInteractionResponses.ok.action],
+            responses: [CommonInteractionResponses.ok.response],
             defaultActionId: CommonInteractionResponses.ok.id,
         })) === CommonInteractionResponses.ok.id;
     }
@@ -46,7 +46,7 @@ export class Interact {
 
 
         return await this.withCustomAndCancel(interactionManager, title, content,
-            new InteractionResponse(CommonInteractionResponses.ok.id, CommonInteractionResponses.ok.action.title, okCommand));
+            new InteractionResponse(CommonInteractionResponses.ok.id, CommonInteractionResponses.ok.response.title, okCommand));
     }
 
     /**
@@ -60,7 +60,7 @@ export class Interact {
         return (await interactionManager.requestInteraction({
             title,
             content,
-            responses: [CommonInteractionResponses.yes.action, CommonInteractionResponses.no.action],
+            responses: [CommonInteractionResponses.yes.response, CommonInteractionResponses.no.response],
             defaultActionId: CommonInteractionResponses.yes.id,
             cancelActionId: CommonInteractionResponses.no.id,
         })) === CommonInteractionResponses.yes.id;
@@ -84,7 +84,7 @@ export class Interact {
             content,
             responses: [
                 action,
-                new InteractionResponse(CommonInteractionResponses.cancel.id, CommonInteractionResponses.cancel.action.title,
+                new InteractionResponse(CommonInteractionResponses.cancel.id, CommonInteractionResponses.cancel.response.title,
                     // A Cancel action that becomes disabled when the OK command (if exists) is active:
                     new RelayCommand(() => content?.onOperationFinished?.call(CommonInteractionResponses.cancel.id), () => action.command?.workingFlag?.isActive !== true)),
             ],
