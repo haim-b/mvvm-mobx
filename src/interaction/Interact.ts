@@ -1,8 +1,9 @@
 import { InteractionResponse } from "./InteractionResponse";
 import { InteractionManager } from "./InteractionManager";
-import { RelayCommand } from "../commands/RelayCommand";
+import { Command } from "../commands/Command";
 import { ReportInteractionOperationFinished } from "./ReportInteractionOperationFinished";
 import { CommonInteractionResponses } from "./CommonInteractionResponses";
+import { RelayCommand } from "../commands";
 
 /** A syntactic-sugar util for working with interactions. */
 export class Interact {
@@ -42,8 +43,7 @@ export class Interact {
      * @returns true if @constant CommonInteractionResponses.Ok.id was selected, or false if @constant CommonInteractionResponses.Cancel.id was selected.
      */
     static async withOkCommand(interactionManager: InteractionManager, title: string | any, content: ReportInteractionOperationFinished,
-        okCommand: RelayCommand) {
-
+        okCommand: Command) {
 
         return await this.withCustomAndCancel(interactionManager, title, content,
             new InteractionResponse(CommonInteractionResponses.ok.id, CommonInteractionResponses.ok.response.title, okCommand));

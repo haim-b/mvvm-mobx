@@ -1,6 +1,6 @@
-import { RelayCommand } from './RelayCommand';
+import { Command } from './Command';
 
-export function bindCommand<T>(command: RelayCommand<T>, parameter: any = null, config?: { disabledPropName?: string, loadingPropName?: string }) {
+export function bindCommand<T>(command: Command<T>, parameter: any = null, config?: { disabledPropName?: string, loadingPropName?: string }) {
     if (!command) {
         return null;
     }
@@ -12,6 +12,6 @@ export function bindCommand<T>(command: RelayCommand<T>, parameter: any = null, 
     return {
         onClick: () => command.execute(parameter),
         [disabledPropName]: isDisabled,
-        [loadingPropName]: command.workingFlag.isActive,
+        [loadingPropName]: command.workingFlag?.isActive,
     };
 }

@@ -1,5 +1,5 @@
 import { makeObservable, observable } from "mobx";
-import { RelayCommand } from "../commands/RelayCommand";
+import { Command } from "../commands/Command";
 
 /** Represents an action for the user to respond on an interaction request. */
 export class InteractionResponse {
@@ -14,7 +14,7 @@ export class InteractionResponse {
         title: string,
 
         /** An optional command to invoke as the user responds. */
-        readonly command?: RelayCommand<void>,
+        readonly command?: Command<void>,
 
         /** An optional icon. */
         readonly icon?: string

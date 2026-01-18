@@ -115,8 +115,8 @@ const interactionObject: InteractionRequest = {
             title: 'Confirmation',
             content: 'Are you sure you want to delete?',
             actions: [
-                CommonInteractionActions.yes.action
-                CommonInteractionActions.no.action
+                CommonInteractionActions.yes.response
+                CommonInteractionActions.no.response
                 ]
         };
  

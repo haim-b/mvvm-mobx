@@ -1,7 +1,8 @@
 import { action, makeObservable } from 'mobx';
 import { CounterFlag } from '../core/CounterFlag';
+import { Command } from './Command';
 
-export class RelayCommand<T = void> {
+export class RelayCommand<T = void> implements Command<T> {
 
     readonly workingFlag = new CounterFlag();
 
@@ -17,7 +18,7 @@ export class RelayCommand<T = void> {
     }
 
     @action async execute(parameter: T): Promise<void> {
-        await this.workingFlag.using(async() => {
+        await this.workingFlag.using(async () => {
             await this.executeFunc(parameter);
         });
     }
