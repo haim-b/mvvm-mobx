@@ -79,14 +79,20 @@ export class Interact {
             throw Error('Missing onOperationFinished property on the content when using command in responses. Do not forget a default assignment to undefined.');
         }
 
+        // Adding the Cancel response as a command will allow up to get a beter UX by disabling it while the custom action is executing.
+        // But it can be achieved only if the main action is a command and the content supports reporting operation finished (otherwise we won't know how to manually execute the cancellation response).
+        const addCancelAsCommand = action.command && ('onOperationFinished' in content);
+
         return (await interactionManager.requestInteraction({
             title,
             content,
             responses: [
                 action,
-                new InteractionResponse(CommonInteractionResponses.cancel.id, CommonInteractionResponses.cancel.response.title,
-                    // A Cancel action that becomes disabled when the OK command (if exists) is active:
-                    new RelayCommand(() => content?.onOperationFinished?.call(CommonInteractionResponses.cancel.id), () => action.command?.workingFlag?.isActive !== true)),
+                addCancelAsCommand ?
+                    new InteractionResponse(CommonInteractionResponses.cancel.id, CommonInteractionResponses.cancel.response.title,
+                        // A Cancel action that becomes disabled when the OK command (if exists) is active:
+                        new RelayCommand(() => content?.onOperationFinished?.call(CommonInteractionResponses.cancel.id), () => action.command?.workingFlag?.isActive !== true))
+                    : CommonInteractionResponses.cancel.response,
             ],
             defaultActionId: action.id,
             cancelActionId: CommonInteractionResponses.cancel.id,
