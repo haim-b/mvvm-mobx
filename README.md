@@ -157,11 +157,16 @@ The view is responsible to present the interaction in a manner which it finds su
 Once the user chooses the response, the promise of the `requestInteraction` method should be finished.
 
 ### Finishing the interaction through code
-If you implement the `ReportInteractionOperationFinished` interface, you can finish the interaction through code by calling the interface's `onOperationFinished` function.
+There are some advanced cases where you may want the interaction itself to decide when it's finished.
+This can occur in situations where you want the interaction to run a command and close itself when the command succeeds.
 
+If you implement the `ReportInteractionOperationFinished` interface, you can finish the interaction through code by calling the interface's `onOperationFinished` function.
+This will notify the interaction manager that the interaction has finished and it should resolve the promise of the `requestInteraction` method.
+
+### Default implementation
 This package includes a pre-implemented `SingleConcurrentInteractionManager` interaction manager for handling one interaction request at a time. When using modals, this should fit most of the use cases.
 
-To implement the View side, there's also a `useSingleConcurrentInteractionHandler` hook that take case of most of the logic.
+To help you implement the View side, there's also a `useSingleConcurrentInteractionHandler` hook that take case of most of the logic.
 
 ## PaneViewModelBase
 
@@ -179,11 +184,3 @@ The method will:
 1. Set the workingFlag.isActive property to `true` so that UI elements could present an in-progress state.
 2. Catch exception (except AcknowledgementRequiredException) and put the message in the `error` property for the UI to bind to.
 3. Log the exceptions.
-
-You can use the helper `errorModalProps` function in the UI to automatically bind and handle the `error` property:
-
-```jsx
-<ErrorModal
-    {...errorModalProps(vm)}
-/>
-```
